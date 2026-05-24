@@ -13,6 +13,10 @@ type entry struct {
 }
 
 // Cache 是带 TTL 的进程内缓存。过期项仍保留并可作为 stale 数据兜底返回（GetOrLoad 用）。
+//
+// 注意：本 Cache 不做后台过期清理，依赖调用方通过有限的 key 空间或主动
+// DeletePrefix/Clear 控制内存。本项目中 key 空间被榜单类型×时间窗×分页限定，
+// 总量有上限。如需被大量 unique key 写入（如以 user_id 作 key），请改用 LRU 实现。
 type Cache struct {
 	mu     sync.RWMutex
 	data   map[string]entry
@@ -40,9 +44,9 @@ func (c *Cache) Set(key string, val any, ttl time.Duration) {
 
 // Get 返回 (val, ok, stale)。
 //
-//	ok=false  → 完全没此 key
-//	ok=true, stale=false → 命中且未过期
-//	ok=true, stale=true  → 过期但保留作 fallback
+//	ok=false             → 完全没此 key（misses++）
+//	ok=true, stale=false → 命中且未过期（hits++）
+//	ok=true, stale=true  → 过期但保留作 fallback（hits++，stale 也计入 hits）
 func (c *Cache) Get(key string) (any, bool, bool) {
 	c.mu.RLock()
 	e, ok := c.data[key]
