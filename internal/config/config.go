@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Config 持有所有运行时配置项。
 type Config struct {
 	MySQLDSN          string
 	Port              string
@@ -14,20 +15,22 @@ type Config struct {
 	SiteURL           string
 	AdminToken        string
 	HiddenUserIDs     []int64
-	CacheTTLUsers     int
-	CacheTTLLogs      int
+	CacheTTLUsers     int // 秒
+	CacheTTLLogs      int // 秒
 	LoyalThreshold    float64
 	LoyalMinCalls     int
 	EmbedTabsDefault  []string
 	MySQLMaxOpen      int
 	MySQLMaxIdle      int
-	MySQLConnLifetime int
+	MySQLConnLifetime int // 秒
 	RateLimitPerMin   int
 	LogLevel          string
 }
 
+// AdminEnabled 当 ADMIN_TOKEN 已配置时返回 true，未配置则禁用 /admin 路由。
 func (c *Config) AdminEnabled() bool { return c.AdminToken != "" }
 
+// Load 从环境变量解析配置，并应用默认值。MYSQL_DSN 未设置时返回错误。
 func Load() (*Config, error) {
 	dsn := os.Getenv("MYSQL_DSN")
 	if dsn == "" {
