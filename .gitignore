@@ -1,0 +1,28 @@
+# Go
+/leaderboard
+/bin/
+*.exe
+*.test
+*.out
+coverage.txt
+
+# Node / Vite
+node_modules/
+web/dist/
+.pnpm-store/
+
+# Env / runtime
+.env
+.env.local
+/data/*
+!/data/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Superpowers 工作目录
+.superpowers/
+memory/
