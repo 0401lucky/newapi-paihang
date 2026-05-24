@@ -2,11 +2,7 @@ package cache
 
 import (
 	"time"
-
-	"golang.org/x/sync/singleflight"
 )
-
-var sfGroup singleflight.Group
 
 // GetOrLoad 是缓存的核心入口：
 //  1. 缓存命中且未过期 → 直接返回，stale=false
@@ -18,7 +14,7 @@ func (c *Cache) GetOrLoad(key string, ttl time.Duration, loader func() (any, err
 	if v, ok, stale := c.Get(key); ok && !stale {
 		return v, false, nil
 	}
-	result, err, _ := sfGroup.Do(key, func() (any, error) {
+	result, err, _ := c.sf.Do(key, func() (any, error) {
 		val, err := loader()
 		if err != nil {
 			// loader 失败，但如果有旧值就返回旧值

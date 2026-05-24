@@ -5,6 +5,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"golang.org/x/sync/singleflight"
 )
 
 type entry struct {
@@ -20,6 +22,7 @@ type entry struct {
 type Cache struct {
 	mu     sync.RWMutex
 	data   map[string]entry
+	sf     singleflight.Group
 	hits   atomic.Int64
 	misses atomic.Int64
 }
