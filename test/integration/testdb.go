@@ -1,3 +1,7 @@
+// Package integration 集成测试 helper。
+//
+// 注意：SharedDB 使用包级单例，调用 ResetSeed 会污染并发测试，
+// 因此使用本 helper 的测试**禁止 t.Parallel()**。
 package integration
 
 import (
@@ -36,7 +40,7 @@ func SharedDB(t *testing.T) (*sql.DB, string) {
 	return sharedDB, sharedDSN
 }
 
-func startMySQL() (*sql.DB, string, error) {
+func startMySQL() (db *sql.DB, dsn string, err error) {
 	pool, err := dockertest.NewPool("")
 	if err != nil {
 		return nil, "", fmt.Errorf("dockertest pool: %w", err)
@@ -57,12 +61,17 @@ func startMySQL() (*sql.DB, string, error) {
 	if err != nil {
 		return nil, "", fmt.Errorf("docker run mysql: %w", err)
 	}
+	// 任何后续失败时，主动 Purge 容器避免遗孤（AutoRemove 是兜底）
+	defer func() {
+		if err != nil {
+			_ = pool.Purge(res)
+		}
+	}()
 	_ = res.Expire(600) // 10 分钟兜底清理
 
-	dsn := fmt.Sprintf("root:root@tcp(localhost:%s)/newapi_test?parseTime=true&multiStatements=true", res.GetPort("3306/tcp"))
+	dsn = fmt.Sprintf("root:root@tcp(localhost:%s)/newapi_test?parseTime=true&multiStatements=true", res.GetPort("3306/tcp"))
 
-	var db *sql.DB
-	if err := pool.Retry(func() error {
+	if err = pool.Retry(func() error {
 		var e error
 		db, e = sql.Open("mysql", dsn)
 		if e != nil {
@@ -73,7 +82,7 @@ func startMySQL() (*sql.DB, string, error) {
 		return nil, "", fmt.Errorf("等待 MySQL 就绪: %w", err)
 	}
 
-	if err := applySeed(db); err != nil {
+	if err = applySeed(db); err != nil {
 		return nil, "", fmt.Errorf("apply seed: %w", err)
 	}
 	return db, dsn, nil
@@ -111,10 +120,17 @@ func findProjectRoot() (string, error) {
 // ResetSeed 在每个测试开始时调用：清表 + 重新灌种子，保证测试互不污染
 func ResetSeed(t *testing.T, db *sql.DB) {
 	t.Helper()
+	// 用 TRUNCATE 重置 AUTO_INCREMENT，避免多次 reset 后 id 漂移
+	if _, err := db.Exec("SET FOREIGN_KEY_CHECKS=0"); err != nil {
+		t.Fatalf("disable FK checks: %v", err)
+	}
 	for _, table := range []string{"logs", "top_ups", "users"} {
-		if _, err := db.Exec("DELETE FROM " + table); err != nil {
-			t.Fatalf("清表 %s 失败: %v", table, err)
+		if _, err := db.Exec("TRUNCATE TABLE " + table); err != nil {
+			t.Fatalf("truncate %s 失败: %v", table, err)
 		}
+	}
+	if _, err := db.Exec("SET FOREIGN_KEY_CHECKS=1"); err != nil {
+		t.Fatalf("enable FK checks: %v", err)
 	}
 	if err := applySeed(db); err != nil {
 		t.Fatalf("重新灌种子失败: %v", err)
