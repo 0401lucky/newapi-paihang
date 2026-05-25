@@ -1,4 +1,4 @@
-module github.com/yourname/newapi-leaderboard
+module github.com/0401lucky/newapi-paihang
 
 go 1.25
 

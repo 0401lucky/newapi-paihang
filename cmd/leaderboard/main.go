@@ -13,14 +13,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourname/newapi-leaderboard/internal/cache"
-	"github.com/yourname/newapi-leaderboard/internal/config"
-	"github.com/yourname/newapi-leaderboard/internal/db"
-	embedpkg "github.com/yourname/newapi-leaderboard/internal/embed"
-	"github.com/yourname/newapi-leaderboard/internal/handler"
-	"github.com/yourname/newapi-leaderboard/internal/middleware"
-	"github.com/yourname/newapi-leaderboard/internal/persist"
-	"github.com/yourname/newapi-leaderboard/internal/service"
+	"github.com/0401lucky/newapi-paihang/internal/cache"
+	"github.com/0401lucky/newapi-paihang/internal/config"
+	"github.com/0401lucky/newapi-paihang/internal/db"
+	embedpkg "github.com/0401lucky/newapi-paihang/internal/embed"
+	"github.com/0401lucky/newapi-paihang/internal/handler"
+	"github.com/0401lucky/newapi-paihang/internal/middleware"
+	"github.com/0401lucky/newapi-paihang/internal/persist"
+	"github.com/0401lucky/newapi-paihang/internal/service"
 )
 
 var version = "dev"

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/yourname/newapi-leaderboard/internal/cache"
-	"github.com/yourname/newapi-leaderboard/internal/config"
-	"github.com/yourname/newapi-leaderboard/internal/repo"
+	"github.com/0401lucky/newapi-paihang/internal/cache"
+	"github.com/0401lucky/newapi-paihang/internal/config"
+	"github.com/0401lucky/newapi-paihang/internal/repo"
 )
 
 // Service 业务编排：缓存命中 → repo → 写缓存。

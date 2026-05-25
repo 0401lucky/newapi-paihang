@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourname/newapi-leaderboard/internal/persist"
-	"github.com/yourname/newapi-leaderboard/internal/service"
+	"github.com/0401lucky/newapi-paihang/internal/persist"
+	"github.com/0401lucky/newapi-paihang/internal/service"
 )
 
 func Rank(s *service.Service, store *persist.AdminStore) gin.HandlerFunc {

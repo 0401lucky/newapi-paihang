@@ -2,7 +2,7 @@
 
 > 给 NewAPI 用户做的社区向外部排行榜。9 个有趣榜单（土豪/吃货/熬夜冠军…），支持 iframe 嵌入到 NewAPI 首页，部署到 Zeabur。
 
-[![CI](https://github.com/yourname/newapi-leaderboard/actions/workflows/ci.yml/badge.svg)](https://github.com/yourname/newapi-leaderboard/actions)
+[![CI](https://github.com/0401lucky/newapi-paihang/actions/workflows/ci.yml/badge.svg)](https://github.com/0401lucky/newapi-paihang/actions)
 
 ## 特性
 

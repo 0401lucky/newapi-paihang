@@ -7,7 +7,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/yourname/newapi-leaderboard/internal/config"
+	"github.com/0401lucky/newapi-paihang/internal/config"
 )
 
 // OpenPool 根据配置创建并校验 MySQL 连接池。

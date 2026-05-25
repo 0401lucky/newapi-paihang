@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/yourname/newapi-leaderboard/internal/repo"
+	"github.com/0401lucky/newapi-paihang/internal/repo"
 )
 
 func TestLoyal_ClaudeFanReturnsClaude(t *testing.T) {

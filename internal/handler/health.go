@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourname/newapi-leaderboard/internal/db"
+	"github.com/0401lucky/newapi-paihang/internal/db"
 )
 
 func Health(d *sql.DB, version string) gin.HandlerFunc {

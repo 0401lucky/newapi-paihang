@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourname/newapi-leaderboard/internal/config"
-	"github.com/yourname/newapi-leaderboard/internal/service"
+	"github.com/0401lucky/newapi-paihang/internal/config"
+	"github.com/0401lucky/newapi-paihang/internal/service"
 )
 
 type EmbedDefault struct {

@@ -6,9 +6,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourname/newapi-leaderboard/internal/cache"
-	"github.com/yourname/newapi-leaderboard/internal/config"
-	"github.com/yourname/newapi-leaderboard/internal/persist"
+	"github.com/0401lucky/newapi-paihang/internal/cache"
+	"github.com/0401lucky/newapi-paihang/internal/config"
+	"github.com/0401lucky/newapi-paihang/internal/persist"
 )
 
 func AdminClearCache(c *cache.Cache) gin.HandlerFunc {
