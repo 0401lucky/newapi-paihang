@@ -1,0 +1,6 @@
+[build]
+builder = "dockerfile"
+
+[serve]
+port = 8080
+healthcheck = "/api/health"

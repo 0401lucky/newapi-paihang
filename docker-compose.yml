@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: newapi_test
+    ports: ["3306:3306"]
+    volumes:
+      - ./test/fixtures/seed.sql:/docker-entrypoint-initdb.d/01-seed.sql:ro
+
+  app:
+    build: .
+    depends_on: [mysql]
+    environment:
+      MYSQL_DSN: "root:root@tcp(mysql:3306)/newapi_test?parseTime=true&loc=Asia%2FShanghai"
+      ADMIN_TOKEN: dev-token
+      SITE_NAME: "NewAPI 排行榜 (DEV)"
+      SITE_URL: "http://localhost:8080"
+    ports: ["8080:8080"]
+    volumes:
+      - ./data:/app/data
