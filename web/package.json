@@ -7,7 +7,7 @@
     "build": "tsc -b && vite build && node scripts/copy-to-embed.mjs",
     "preview": "vite preview",
     "test": "vitest run",
-    "lint": "tsc -b --noEmit"
+    "lint": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "react": "^18.3.1",
