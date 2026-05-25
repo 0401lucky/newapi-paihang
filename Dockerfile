@@ -1,7 +1,7 @@
 # Stage 1: 前端打包
 FROM node:22-alpine AS frontend
 WORKDIR /app
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.15.0 --activate
 COPY web/package.json web/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY web/ ./
