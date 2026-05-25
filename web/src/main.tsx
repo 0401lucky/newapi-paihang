@@ -1,3 +1,17 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MainApp } from './pages/MainApp'
 import './styles/globals.css'
-createRoot(document.getElementById('root')!).render(<div className="p-8">主站脚手架 OK</div>)
+
+const qc = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+})
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <QueryClientProvider client={qc}>
+      <MainApp />
+    </QueryClientProvider>
+  </StrictMode>,
+)
