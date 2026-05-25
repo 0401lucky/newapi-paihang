@@ -1,3 +1,8 @@
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { AdminApp } from './pages/AdminApp'
 import './styles/globals.css'
-createRoot(document.getElementById('root')!).render(<div className="p-8">后台脚手架 OK</div>)
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode><AdminApp /></StrictMode>,
+)
