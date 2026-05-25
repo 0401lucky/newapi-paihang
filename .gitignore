@@ -26,3 +26,9 @@ web/dist/
 # Superpowers 工作目录
 .superpowers/
 memory/
+
+# 前端构建产物（CI/本地 build 时由 web/scripts/copy-to-embed.mjs 写入）
+internal/embed/dist/assets/
+# 但保留占位 HTML
+!internal/embed/dist/*.html
+!internal/embed/dist/.gitkeep
