@@ -10,6 +10,11 @@ coverage.txt
 node_modules/
 web/dist/
 .pnpm-store/
+web/*.tsbuildinfo
+web/vite.config.d.ts
+web/vite.config.js
+web/vitest.config.d.ts
+web/vitest.config.js
 
 # Env / runtime
 .env

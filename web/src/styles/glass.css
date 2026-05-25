@@ -1,0 +1,19 @@
+.glass {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.8);
+}
+
+.glass-row { background: rgba(255,255,255,0.7); }
+.glass-row-gold   { background: linear-gradient(90deg, rgba(251,191,36,0.25), rgba(255,255,255,0.75)); }
+.glass-row-silver { background: linear-gradient(90deg, rgba(212,212,216,0.35), rgba(255,255,255,0.75)); }
+.glass-row-bronze { background: linear-gradient(90deg, rgba(217,119,6,0.22), rgba(255,255,255,0.75)); }
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-gradient { background-image: var(--bg-gradient); }
