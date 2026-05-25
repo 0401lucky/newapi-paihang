@@ -1,5 +1,5 @@
 # Stage 1: 前端打包
-FROM node:20-alpine AS frontend
+FROM node:22-alpine AS frontend
 WORKDIR /app
 RUN corepack enable
 COPY web/package.json web/pnpm-lock.yaml ./
